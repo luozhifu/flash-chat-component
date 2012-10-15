@@ -1,7 +1,8 @@
 package
 {
-	import com.gaara.chat.ChatRichTextArea;
 	import com.gaara.chat.ChatTextAreaUtil;
+	import com.gaara.chat.RichTextArea;
+	import com.gaara.chat.RichTextAreaUtil;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -20,19 +21,19 @@ package
 	 *  2012-9-28
 	 *  聊天组件测试
 	 **/
-	[SWF(width="800", height="600" ,frameRate="30", backgroundColor="#FFFFFF")]
+	[SWF(width="200", height="100" ,frameRate="30", backgroundColor="#FFFFFF")]
 	public class ChatExample extends Sprite
-	{
+	{   
 		/** 性别 **/
 		private static const SEXARR:Array = ["♀","♂"];
 		
 		/** 图文混排组件 **/
-		private var textArea:ChatRichTextArea;
+		private var textArea:RichTextArea;
 		
 		public function ChatExample()
 		{
 			//创建图文混排面板
-			textArea = new ChatRichTextArea;
+			textArea = new RichTextArea;
 			//添加背景
 			var back:Sprite = new Sprite;
 			back.graphics.beginFill(0,0.5);
@@ -47,6 +48,11 @@ package
 			
 			str = "Gaara的聊天组件";
 			appendRichText(str);
+			
+			
+			var htmlTxt:String = '<font color="#00FF00">html文本</font><img src="f0.swf"/>';
+			
+			textArea.appendGroupE(RichTextAreaUtil.getContentArr(htmlTxt),true);
 		}
 		
 		/**
@@ -55,7 +61,6 @@ package
 		 **/
 		public function appendRichText(content:String):void
 		{
-			var preVector:Vector.<ContentElement> = new Vector.<ContentElement>();
 			var groupVector:Vector.<ContentElement> = new Vector.<ContentElement>();
 			
 			//频道
@@ -70,12 +75,12 @@ package
 			var channelColor:uint =  0xff0000;
 			var channelTE:TextElement = new TextElement(temp,ChatTextAreaUtil.createFormat(channelColor));
 			channelTE.eventMirror = eventDP;
-			preVector.push(channelTE);
+			groupVector.push(channelTE);
 			
 			//性别
 			temp = SEXARR[0] +"[";
 			var sexTE:TextElement = new TextElement(temp,ChatTextAreaUtil.createFormat());
-			preVector.push(sexTE);
+			groupVector.push(sexTE);
 			
 			//性名
 			temp = "没名字";
@@ -87,18 +92,18 @@ package
 			
 			var nameTE:TextElement = new TextElement(temp,ChatTextAreaUtil.createFormat());
 			nameTE.eventMirror = eventDP;
-			preVector.push(nameTE);
+			groupVector.push(nameTE);
 			
 			//用此变量来作为下划线标志
 			nameTE.userData = true;
 			
 			temp = "]:";
 			var flagTE:TextElement = new TextElement(temp,ChatTextAreaUtil.createFormat());
-			preVector.push(flagTE);
+			groupVector.push(flagTE);
 			
 			ChatTextAreaUtil.getContentArr(content,groupVector);
 			
-			textArea.appendText(new GroupElement(preVector),new GroupElement(groupVector));
+			textArea.appendGroupE(new GroupElement(groupVector),true);
 		}
 		
 		

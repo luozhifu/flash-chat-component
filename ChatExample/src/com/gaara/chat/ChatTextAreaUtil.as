@@ -28,6 +28,7 @@ package com.gaara.chat
 		private static const FACE_NUM:int = 2;
 		
 		private static var fontDescription:FontDescription = new FontDescription("宋体");
+		private static var fontDescriptionBold:FontDescription = new FontDescription("宋体","bold");
 		
 		/** 表情数组 **/
 		public static var faceVec:Vector.<Loader> = new Vector.<Loader>;
@@ -36,12 +37,12 @@ package com.gaara.chat
 		 *  功能:创建一个样式对象
 		 *  参数:
 		 **/
-		public static function createFormat(color:int=0xd8e5c6):ElementFormat
+		public static function createFormat(color:int=0xd8e5c6,size:int=12,bold:Boolean=false):ElementFormat
 		{
 			var format:ElementFormat = new ElementFormat();
-			format.fontSize = 12;
+			format.fontSize = size;
 			format.color = color;
-			format.fontDescription = fontDescription;
+			format.fontDescription = bold?fontDescriptionBold:fontDescription;
 			return format;
 		}
 		
@@ -62,7 +63,7 @@ package com.gaara.chat
 						continue;
 					}
 					
-					var url:String = StringUtil.substitute("com/gaara/faces/f{0}.swf",iconId);
+					var url:String = StringUtil.substitute("f{0}.swf",iconId);
 					var iconSprite:Loader = new Loader;
 					iconSprite.y = 6;
 					iconSprite.load(new URLRequest(url));
