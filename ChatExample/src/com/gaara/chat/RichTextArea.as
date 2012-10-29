@@ -7,6 +7,7 @@ package com.gaara.chat
 	import flash.events.Event;
 	import flash.filters.GlowFilter;
 	import flash.text.engine.GroupElement;
+	import flash.text.engine.TextBaseline;
 	import flash.text.engine.TextBlock;
 	import flash.text.engine.TextLine;
 	import flash.text.engine.TextLineCreationResult;
@@ -22,7 +23,7 @@ package com.gaara.chat
 	public class RichTextArea extends Sprite
 	{
 		/** 记录初始位置 **/
-		public var offsetY:int = 20;
+		public var offsetY:int = 0;
 		
 		/** 行距 **/
 		public var space:int = 8;
@@ -46,6 +47,7 @@ package com.gaara.chat
 		public function appendGroupE(groupE:GroupElement,newLine:Boolean=false):void
 		{
 			var textBlock:TextBlock = new TextBlock;
+			textBlock.baselineZero =  TextBaseline.ASCENT;
 			textBlock.content = groupE;
 			
 			//第一次创建减去前辍宽度
