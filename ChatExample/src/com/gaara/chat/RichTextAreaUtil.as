@@ -7,6 +7,7 @@ package com.gaara.chat
 	import flash.text.engine.ElementFormat;
 	import flash.text.engine.GraphicElement;
 	import flash.text.engine.GroupElement;
+	import flash.text.engine.TextBaseline;
 	import flash.text.engine.TextElement;
 	
 	import mx.utils.StringUtil;
@@ -25,7 +26,7 @@ package com.gaara.chat
 		private static const FONT:String = "font";
 		
 		/** 表情数组 **/
-		public static var faceVec:Vector.<Loader> = new Vector.<Loader>;
+		public static var faceVec:Vector.<FaceLoader> = new Vector.<FaceLoader>;
 		
 		/**
 		 *  功能:html转换成xml
@@ -98,16 +99,12 @@ package com.gaara.chat
 				tagName = xml.name();
 				if(tagName == IMG){
 					//表情
-					var url:String = xml.@src;
-					var format:ElementFormat = new ElementFormat();
-					format.fontSize = size;
-//					format.trackingLeft = 5;
-					
-					var iconSprite:Loader = new Loader;
-					iconSprite.y = 6;
-					iconSprite.load(new URLRequest(url));
+					var iconSprite:FaceLoader = new FaceLoader(24,12);
+					iconSprite.load(xml.@src);
 					faceVec.push(iconSprite);
-					var face:GraphicElement = new GraphicElement(iconSprite,25,24,format);
+					var format:ElementFormat = new ElementFormat();
+					format.dominantBaseline = TextBaseline.ASCENT;
+					var face:GraphicElement = new GraphicElement(iconSprite,24,0,format);
 					groupVector.push(face);
 				}
 				else if(tagName == FONT){

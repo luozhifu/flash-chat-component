@@ -10,6 +10,7 @@ package com.gaara.chat
 	import flash.text.engine.ElementFormat;
 	import flash.text.engine.FontDescription;
 	import flash.text.engine.GraphicElement;
+	import flash.text.engine.TextBaseline;
 	import flash.text.engine.TextElement;
 	
 	import mx.utils.StringUtil;
@@ -31,7 +32,7 @@ package com.gaara.chat
 		private static var fontDescriptionBold:FontDescription = new FontDescription("宋体","bold");
 		
 		/** 表情数组 **/
-		public static var faceVec:Vector.<Loader> = new Vector.<Loader>;
+		public static var faceVec:Vector.<FaceLoader> = new Vector.<FaceLoader>;
 		
 		/**
 		 *  功能:创建一个样式对象
@@ -64,15 +65,13 @@ package com.gaara.chat
 					}
 					
 					var url:String = StringUtil.substitute("f{0}.swf",iconId);
-					var iconSprite:Loader = new Loader;
-					iconSprite.y = 6;
-					iconSprite.load(new URLRequest(url));
+					var iconSprite:FaceLoader = new FaceLoader(24,12);
+					iconSprite.load(url);
 					faceVec.push(iconSprite);
 					
 					var format:ElementFormat = new ElementFormat();
-					format.fontSize = 12;
-					
-					var face:GraphicElement = new GraphicElement(iconSprite,25,25,format);
+					format.dominantBaseline = TextBaseline.ASCENT;
+					var face:GraphicElement = new GraphicElement(iconSprite,24,0,format);
 					groupVector.push(face);
 					
 				}else{

@@ -75,7 +75,7 @@ package com.gaara.chat
 			}
 			while (textLine)
 			{
-				textLine.filters = [ new GlowFilter(0,1,2,2,16)];
+				textLine.filters =  [new GlowFilter(0,1,2,2,16)];
 				for each (var tlm:TextLineMirrorRegion in textLine.mirrorRegions) 
 				{
 					//用此变量来作为下划线标志
@@ -93,14 +93,14 @@ package com.gaara.chat
 				
 				addChild(textLine);
 				preTextLine = textLine;
-				textLine.y = offsetY;
-				
+				textLine.y = offsetY + space;
+				trace("h:"+textLine.height +" y:"+textLine.y)
 //				height = textLine.y + textLine.height  +rowHeight;
 				
 				preRight = preTextLine.x + preTextLine.width;
-				
-				textLine = textBlock.createTextLine(preTextLine, width - preRight);
-				if(!textLine && isNewLine(textBlock)){
+				levPixel = width - preRight;
+				textLine = textBlock.createTextLine(preTextLine, levPixel);
+				if(!textLine && (levPixel==0 || isNewLine(textBlock))){
 					//指定的宽度无法创建
 					preRight = 0;
 					offsetY += rowHeight?rowHeight:preTextLine.height+space;

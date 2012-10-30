@@ -43,14 +43,13 @@ package
 			addChild(textArea);
 			
 			//添加聊天内容 
-			var str:String = "adfadsfasdf[f0]asdf[f1]"
+			var str:String = "adfadsfasdfaaa[f1]aaa"
 			appendRichText(str);
 			
-			str = "Gaara的聊天组件";
+			str = "Gaara";
 			appendRichText(str);
-			
-			
-			var htmlTxt:String = '<font color="#00FF00">html文本</font><img src="f0.swf"/>';
+		
+			var htmlTxt:String = '<img src="f0.swf"/>';
 			
 			textArea.appendGroupE(RichTextAreaUtil.getContentArr(htmlTxt),true);
 		}
