@@ -102,9 +102,11 @@ package com.gaara.chat
 				textLine = textBlock.createTextLine(preTextLine, levPixel);
 				if(!textLine && (levPixel==0 || isNewLine(textBlock))){
 					//指定的宽度无法创建
-					preRight = 0;
-					offsetY += rowHeight?rowHeight:preTextLine.height+space;
 					textLine = textBlock.createTextLine(preTextLine, width);
+					if(textLine){
+						preRight = 0;
+						offsetY += rowHeight?rowHeight:preTextLine.height+space;
+					}
 				}
 			}
 			
